@@ -78,8 +78,10 @@ class SonataEnhancer implements DescriptionEnhancerInterface
                 $admin->getIdParameter() => $admin->getUrlsafeIdentifier($object),
             ], true);
 
-            $linkKey = trim($code, '.)');
-            if (array_key_exists($linkKey, self::$linkKeyMapping)) {
+            $parts = explode('.', $code);
+            $linkKey = end($parts);
+
+            if (false !== $linkKey && array_key_exists($linkKey, self::$linkKeyMapping)) {
                 $description->set(self::$linkKeyMapping[$linkKey], $url);
             }
         }
